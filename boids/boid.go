@@ -46,7 +46,7 @@ func (b *Boid) moveOne() {
 		b.velocity = Vector2D{-b.velocity.x, b.velocity.y}
 	}
 	if next.y >= screenHeight || next.y < 0 {
-		b.velocity = Vector2D{b.velocity.x, b.velocity.y}
+		b.velocity = Vector2D{b.velocity.x, -b.velocity.y}
 	}
 }
 
