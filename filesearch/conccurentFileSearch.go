@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 )
 
 var (
@@ -33,12 +34,26 @@ func fileSearch(root string, filename string) {
 }
 
 func main() {
+	start := time.Now()
 	waitgroup.Add(1)
-	go fileSearch("/home/petros_trak/Documents", ".pdf")
+	go fileSearch("/", ".pdf")
 	waitgroup.Wait()
 	for _, file := range matches {
 		fmt.Println("Matched", file)
 		count++
 	}
-	fmt.Printf("Found %d results\n", count)
+
+	duration := time.Since(start)
+
+	switch count {
+	case 1:
+		fmt.Println("Found 1 result.")
+	case 0:
+		fmt.Println("No results found")
+	default:
+		fmt.Printf("Found %d results.\n", count)
+	}
+
+	fmt.Printf("Time required for search: %f seconds.\n", duration.Seconds())
+
 }
