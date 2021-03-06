@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	count     int
 	matches   []string
 	waitgroup = sync.WaitGroup{}
 	lock      = sync.Mutex{}
@@ -33,9 +34,11 @@ func fileSearch(root string, filename string) {
 
 func main() {
 	waitgroup.Add(1)
-	go fileSearch("/home/petros_trak/github.com", "README.md")
+	go fileSearch("/home/petros_trak/Documents", ".pdf")
 	waitgroup.Wait()
 	for _, file := range matches {
 		fmt.Println("Matched", file)
+		count++
 	}
+	fmt.Printf("Found %d results\n", count)
 }
