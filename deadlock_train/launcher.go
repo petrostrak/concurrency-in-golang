@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/concurrency-in-golang/deadlock_train/common"
-	"github.com/concurrency-in-golang/deadlock_train/deadlock"
+	"github.com/concurrency-in-golang/deadlock_train/hierarchy"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -41,16 +41,16 @@ func main() {
 		intersections[i] = &common.Intersection{ID: i, Mutex: sync.Mutex{}, LockedBy: -1}
 	}
 
-	go deadlock.MoveTrain(trains[0], 300, []*common.Crossing{{Position: 125, Intersection: intersections[0]},
+	go hierarchy.MoveTrain(trains[0], 300, []*common.Crossing{{Position: 125, Intersection: intersections[0]},
 		{Position: 175, Intersection: intersections[1]}})
 
-	go deadlock.MoveTrain(trains[1], 300, []*common.Crossing{{Position: 125, Intersection: intersections[1]},
+	go hierarchy.MoveTrain(trains[1], 300, []*common.Crossing{{Position: 125, Intersection: intersections[1]},
 		{Position: 175, Intersection: intersections[2]}})
 
-	go deadlock.MoveTrain(trains[2], 300, []*common.Crossing{{Position: 125, Intersection: intersections[2]},
+	go hierarchy.MoveTrain(trains[2], 300, []*common.Crossing{{Position: 125, Intersection: intersections[2]},
 		{Position: 175, Intersection: intersections[3]}})
 
-	go deadlock.MoveTrain(trains[3], 300, []*common.Crossing{{Position: 125, Intersection: intersections[3]},
+	go hierarchy.MoveTrain(trains[3], 300, []*common.Crossing{{Position: 125, Intersection: intersections[3]},
 		{Position: 175, Intersection: intersections[0]}})
 	ebiten.SetWindowSize(320*3, 320*3)
 	ebiten.SetWindowTitle("Trains in a box")
